@@ -47,11 +47,6 @@
 
 			<liferay-ui:panel-container extended="<%= false %>" persistState="<%= true %>">
 				<liferay-ui:panel collapsible="<%= true %>" defaultState="closed" extended="<%= false %>" persistState="<%= true %>" title="advanced-options">
-					<div class="aui-field-row">
-						<aui:input cssClass="player-color" inlineField="true" label="player-color" name="preferences--playerColor--" value="<%= playerColor %>" />
-
-						<aui:input cssClass="border-color" inlineField="true" label="border-color" name="preferences--borderColor--" value="<%= borderColor %>" />
-					</div>
 
 					<aui:input cssClass="show-thicker-border" inlineField="true" label="show-thicker-border" name="preferences--showThickerBorder--" type="checkbox" value="<%= showThickerBorder %>" />
 
@@ -62,7 +57,7 @@
 
 						<aui:input cssClass="autoplay" inlineField="true" label="auto-play" name="preferences--autoplay--" type="checkbox" value="<%= autoplay %>" />
 
-						<aui:input cssClass="loop" inlineField="true" label="loop" name="preferences--loop--" type="checkbox" value="<%= loop %>" />
+						<aui:input cssClass="loop" inlineField="true" helpMessage="loop-menu-help" label="loop" name="preferences--loop--" type="checkbox" value="<%= loop %>" />
 					</div>
 
 					<div class="aui-field-row">
@@ -106,7 +101,7 @@
 	</aui:button-row>
 </aui:form>
 
-<aui:script use="aui-color-picker,aui-datatype,aui-swf">
+<aui:script use="aui-datatype,aui-swf">
 	var createPlayer = function() {
 		var id = urlToVideoId(urlNode.val());
 		var height = parseInt(heightNode.val(), 10) || 0;
@@ -114,8 +109,6 @@
 		var playerOptions = {
 			border: showThickerBorderNode.val(),
 			cc_load_policy: closedCaptioningNode.val(),
-			color1: encodeHex(borderColorNode.val()),
-			color2: encodeHex(playerColorNode.val()),
 			disablekb: (!A.DataType.Boolean.parse(enableKeyboardControlsNode.val())).toString(),
 			egm: enableEnhancedGenieMenuNode.val(),
 			fs: enableFullscreenNode.val(),
@@ -195,7 +188,6 @@
 	var previewNode = A.one('#preview');
 
 	var annotationsNode = A.one('#<portlet:namespace />annotations');
-	var borderColorNode = A.one('#<portlet:namespace />borderColor');
 	var closedCaptioningNode = A.one('#<portlet:namespace />closedCaptioning');
 	var enableEnhancedGenieMenuNode = A.one('#<portlet:namespace />enableEnhancedGenieMenu');
 	var enableFullscreenNode = A.one('#<portlet:namespace />enableFullscreen');
@@ -203,7 +195,6 @@
 	var enableSearchNode = A.one('#<portlet:namespace />enableSearch');
 	var hdNode = A.one('#<portlet:namespace />hd');
 	var heightNode = A.one('#<portlet:namespace />height');
-	var playerColorNode = A.one('#<portlet:namespace />playerColor');
 	var presetSizeNode = A.one('#<portlet:namespace />presetSize');
 	var showInfoNode = A.one('#<portlet:namespace />showInfo');
 	var showThickerBorderNode = A.one('#<portlet:namespace />showThickerBorder');
@@ -266,36 +257,6 @@
 			createPlayer();
 		}
 	);
-
-	new A.ColorPicker(
-		{
-			after: {
-				colorChange: function(e) {
-					playerColorNode.val('#' + this.get('hex'));
-
-					createPlayer();
-				}
-			},
-			constrain: true,
-			preventOverlap: true,
-			triggerParent: playerColorNode.get('parentNode')
-		}
-	).render();
-
-	new A.ColorPicker(
-		{
-			after: {
-				colorChange: function(e) {
-					borderColorNode.val('#' + this.get('hex'));
-
-					createPlayer();
-				}
-			},
-			constrain: true,
-			preventOverlap: true,
-			triggerParent: borderColorNode.get('parentNode')
-		}
-	).render();
 
 	if (presetSizeNode.val() == 'custom') {
 		A.one('.aui-field.height').removeClass('invisible');
