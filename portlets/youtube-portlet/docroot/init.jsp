@@ -36,7 +36,6 @@ page import="com.liferay.portal.kernel.util.Validator" %>
 <%
 int annotations = GetterUtil.getInteger(portletPreferences.getValue("annotations", StringPool.BLANK), 1);
 boolean autoplay = GetterUtil.getBoolean(portletPreferences.getValue("autoplay", "false"));
-String borderColor = portletPreferences.getValue("borderColor", StringPool.BLANK);
 int closedCaptioning = GetterUtil.getInteger(portletPreferences.getValue("closedCaptioning", StringPool.BLANK), 0);
 boolean enableEnhancedGenieMenu = GetterUtil.getBoolean(portletPreferences.getValue("enableEnhancedGenieMenu", "false"));
 boolean enableFullscreen = GetterUtil.getBoolean(portletPreferences.getValue("enableFullscreen", "false"));
@@ -46,18 +45,13 @@ boolean enableSearch = GetterUtil.getBoolean(portletPreferences.getValue("enable
 boolean hd = GetterUtil.getBoolean(portletPreferences.getValue("hd", "false"));
 String height = portletPreferences.getValue("height", "360");
 boolean loop = GetterUtil.getBoolean(portletPreferences.getValue("loop", "false"));
-String playerColor = portletPreferences.getValue("playerColor", StringPool.BLANK);
 boolean showInfo = GetterUtil.getBoolean(portletPreferences.getValue("showInfo", "true"));
-boolean showThickerBorder = GetterUtil.getBoolean(portletPreferences.getValue("showThickerBorder", "false"));
 boolean showThumbnail = GetterUtil.getBoolean(portletPreferences.getValue("showThumbnail", "false"));
 String startTime = portletPreferences.getValue("startTime", StringPool.BLANK);
 String url = portletPreferences.getValue("url", StringPool.BLANK);
 String width = portletPreferences.getValue("width", "480");
 
 String id = url.replaceAll("^.*?v=([a-zA-Z0-9_-]+).*$", "$1");
-
-String borderColorHex = "0x" + borderColor.replaceAll("#", "").replaceAll("^(.)(.)(.)$", "$1$1$2$2$3$3").toLowerCase();
-String playerColorHex = "0x" + playerColor.replaceAll("#", "").replaceAll("^(.)(.)(.)$", "$1$1$2$2$3$3").toLowerCase();
 
 String presetSize = width + "x" + height;
 
