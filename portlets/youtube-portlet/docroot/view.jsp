@@ -59,7 +59,7 @@
 		sb.append("&amp;iv_load_policy=" + annotations);
 
 		if (loop) {
-			sb.append("&amp;loop=1");
+			sb.append("&amp;loop=1&amp;playlist=" + id);
 		}
 
 		if (enableRelatedVideos) {
