@@ -74,7 +74,7 @@
 			sb.append("&amp;showsearch=0");
 		}
 
-		if (Validator.isNotNull(startTime)) {
+		if (Validator.isNotNull(inputTime)) {
 			sb.append("&amp;start=" + startTime);
 		}
 		%>
