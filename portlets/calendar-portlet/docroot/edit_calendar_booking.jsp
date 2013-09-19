@@ -114,7 +114,9 @@ List<Calendar> manageableCalendars = CalendarServiceUtil.search(themeDisplay.get
 	<aui:model-context bean="<%= calendarBooking %>" model="<%= CalendarBooking.class %>" />
 
 	<aui:fieldset>
-		<aui:input name="title" />
+		<aui:input name="title">
+			<aui:validator name="required" />
+		</aui:input>
 
 		<div class="<%= allDay ? "allday-class-active" : "" %>" id="<portlet:namespace />startDateContainer">
 			<aui:input label="start-date" name="startTime" value="<%= startTimeJCalendar %>" />
