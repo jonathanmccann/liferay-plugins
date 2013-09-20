@@ -18,11 +18,11 @@
 	<div class="calendar-portlet-event-recorder">
 		<div class="scheduler-event-recorder-header">
 			<tpl if="values.permissions.MANAGE_BOOKINGS">
-				<input class="scheduler-event-recorder-content" name="content" value="{content}" />
+				<input class="scheduler-event-recorder-content" name="content" required value="{content}" />
 			</tpl>
 
 			<tpl if="!values.permissions.MANAGE_BOOKINGS">
-				<input name="content" type="hidden" value="{content}" />
+				<input name="content" required type="hidden" value="{content}" />
 
 				<div class="scheduler-event-recorder-content">{content}</div>
 			</tpl>
