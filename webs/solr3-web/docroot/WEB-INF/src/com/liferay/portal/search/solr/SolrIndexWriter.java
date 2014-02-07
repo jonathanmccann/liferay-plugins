@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.search.DocumentImpl;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.SearchException;
+import com.liferay.portal.kernel.util.AutoResetThreadLocal;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
@@ -194,7 +195,12 @@ public class SolrIndexWriter extends BaseIndexWriter {
 
 		String portletId = uid.substring(0, pos);
 
-		deletePortletDocuments(searchContext, portletId);
+		List<String> portletIdList = _portletIdListThreadLocal.get();
+
+		if (!portletIdList.contains(portletId)) {
+			deletePortletDocuments(searchContext, portletId);
+			portletIdList.add(portletId);
+		}
 
 		addDocuments(searchContext, documents);
 	}
@@ -270,6 +276,11 @@ public class SolrIndexWriter extends BaseIndexWriter {
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(SolrIndexWriter.class);
+
+	private static ThreadLocal<List<String>> _portletIdListThreadLocal =
+		new AutoResetThreadLocal<List<String>>(
+			SolrIndexWriter.class.getName() + "._portletIdListThreadLocal",
+			new ArrayList<String>());
 
 	private boolean _commit;
 	private SolrServer _solrServer;
