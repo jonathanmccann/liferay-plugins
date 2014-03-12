@@ -255,34 +255,34 @@ public class SitesPortlet extends MVCPortlet {
 			boolean member = GroupLocalServiceUtil.hasUserGroup(
 				themeDisplay.getUserId(), group.getGroupId());
 
-			boolean memberUserGroup = false;
-
-			List<UserGroup> siteUserGroups =
-				UserGroupLocalServiceUtil.getGroupUserGroups(
-					group.getGroupId());
-
-			for (UserGroup siteUserGroup : siteUserGroups) {
-				memberUserGroup = UserGroupLocalServiceUtil.hasUserUserGroup(
-					themeDisplay.getUserId(), siteUserGroup.getUserGroupId());
-
-				if (memberUserGroup) {
-					break;
-				}
-			}
-
-			boolean memberOrganization = false;
+			boolean memberOfOrganization = false;
 
 			List<Organization> siteOrganizations =
 				OrganizationLocalServiceUtil.getGroupOrganizations(
 					group.getGroupId());
 
 			for (Organization siteOrganization : siteOrganizations) {
-				memberOrganization =
+				memberOfOrganization =
 					OrganizationLocalServiceUtil.hasUserOrganization(
 						themeDisplay.getUserId(),
 						siteOrganization.getOrganizationId());
 
-				if (memberOrganization) {
+				if (memberOfOrganization) {
+					break;
+				}
+			}
+
+			boolean memberOfUserGroup = false;
+
+			List<UserGroup> siteUserGroups =
+				UserGroupLocalServiceUtil.getGroupUserGroups(
+					group.getGroupId());
+
+			for (UserGroup siteUserGroup : siteUserGroups) {
+				memberOfUserGroup = UserGroupLocalServiceUtil.hasUserUserGroup(
+					themeDisplay.getUserId(), siteUserGroup.getUserGroupId());
+
+				if (memberOfUserGroup) {
 					break;
 				}
 			}
@@ -383,7 +383,7 @@ public class SitesPortlet extends MVCPortlet {
 					groupJSONObject.put("membershipRequested", true);
 				}
 			}
-			else if (member && !(memberUserGroup || memberOrganization)) {
+			else if (member && !memberOfUserGroup && !memberOfOrganization) {
 				siteAssignmentsPortletURL.setParameter(
 					"removeUserIds", String.valueOf(themeDisplay.getUserId()));
 
