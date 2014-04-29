@@ -31,6 +31,7 @@ import com.liferay.portlet.asset.service.persistence.AssetTagPersistence;
 
 import com.liferay.sampleservicebuilder.model.Foo;
 import com.liferay.sampleservicebuilder.service.FooService;
+import com.liferay.sampleservicebuilder.service.persistence.BarPersistence;
 import com.liferay.sampleservicebuilder.service.persistence.FooPersistence;
 
 import javax.sql.DataSource;
@@ -54,6 +55,24 @@ public abstract class FooServiceBaseImpl extends BaseServiceImpl
 	 *
 	 * Never modify or reference this class directly. Always use {@link com.liferay.sampleservicebuilder.service.FooServiceUtil} to access the foo remote service.
 	 */
+
+	/**
+	 * Returns the bar persistence.
+	 *
+	 * @return the bar persistence
+	 */
+	public BarPersistence getBarPersistence() {
+		return barPersistence;
+	}
+
+	/**
+	 * Sets the bar persistence.
+	 *
+	 * @param barPersistence the bar persistence
+	 */
+	public void setBarPersistence(BarPersistence barPersistence) {
+		this.barPersistence = barPersistence;
+	}
 
 	/**
 	 * Returns the foo local service.
@@ -457,6 +476,8 @@ public abstract class FooServiceBaseImpl extends BaseServiceImpl
 		}
 	}
 
+	@BeanReference(type = BarPersistence.class)
+	protected BarPersistence barPersistence;
 	@BeanReference(type = com.liferay.sampleservicebuilder.service.FooLocalService.class)
 	protected com.liferay.sampleservicebuilder.service.FooLocalService fooLocalService;
 	@BeanReference(type = com.liferay.sampleservicebuilder.service.FooService.class)

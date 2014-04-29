@@ -40,6 +40,7 @@ import com.liferay.portlet.asset.service.persistence.AssetTagPersistence;
 
 import com.liferay.sampleservicebuilder.model.Foo;
 import com.liferay.sampleservicebuilder.service.FooLocalService;
+import com.liferay.sampleservicebuilder.service.persistence.BarPersistence;
 import com.liferay.sampleservicebuilder.service.persistence.FooPersistence;
 
 import java.io.Serializable;
@@ -333,6 +334,24 @@ public abstract class FooLocalServiceBaseImpl extends BaseLocalServiceImpl
 	@Override
 	public Foo updateFoo(Foo foo) throws SystemException {
 		return fooPersistence.update(foo);
+	}
+
+	/**
+	 * Returns the bar persistence.
+	 *
+	 * @return the bar persistence
+	 */
+	public BarPersistence getBarPersistence() {
+		return barPersistence;
+	}
+
+	/**
+	 * Sets the bar persistence.
+	 *
+	 * @param barPersistence the bar persistence
+	 */
+	public void setBarPersistence(BarPersistence barPersistence) {
+		this.barPersistence = barPersistence;
 	}
 
 	/**
@@ -742,6 +761,8 @@ public abstract class FooLocalServiceBaseImpl extends BaseLocalServiceImpl
 		}
 	}
 
+	@BeanReference(type = BarPersistence.class)
+	protected BarPersistence barPersistence;
 	@BeanReference(type = com.liferay.sampleservicebuilder.service.FooLocalService.class)
 	protected com.liferay.sampleservicebuilder.service.FooLocalService fooLocalService;
 	@BeanReference(type = com.liferay.sampleservicebuilder.service.FooService.class)

@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.BaseModel;
 
+import com.liferay.sampleservicebuilder.model.BarClp;
 import com.liferay.sampleservicebuilder.model.FooClp;
 
 import java.io.ObjectInputStream;
@@ -100,6 +101,10 @@ public class ClpSerializer {
 
 		String oldModelClassName = oldModelClass.getName();
 
+		if (oldModelClassName.equals(BarClp.class.getName())) {
+			return translateInputBar(oldModel);
+		}
+
 		if (oldModelClassName.equals(FooClp.class.getName())) {
 			return translateInputFoo(oldModel);
 		}
@@ -117,6 +122,16 @@ public class ClpSerializer {
 		}
 
 		return newList;
+	}
+
+	public static Object translateInputBar(BaseModel<?> oldModel) {
+		BarClp oldClpModel = (BarClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getBarRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
 	}
 
 	public static Object translateInputFoo(BaseModel<?> oldModel) {
@@ -145,6 +160,11 @@ public class ClpSerializer {
 		Class<?> oldModelClass = oldModel.getClass();
 
 		String oldModelClassName = oldModelClass.getName();
+
+		if (oldModelClassName.equals(
+					"com.liferay.sampleservicebuilder.model.impl.BarImpl")) {
+			return translateOutputBar(oldModel);
+		}
 
 		if (oldModelClassName.equals(
 					"com.liferay.sampleservicebuilder.model.impl.FooImpl")) {
@@ -231,12 +251,28 @@ public class ClpSerializer {
 		String className = clazz.getName();
 
 		if (className.equals(
+					"com.liferay.sampleservicebuilder.NoSuchBarException")) {
+			return new com.liferay.sampleservicebuilder.NoSuchBarException(throwable.getMessage(),
+				throwable.getCause());
+		}
+
+		if (className.equals(
 					"com.liferay.sampleservicebuilder.NoSuchFooException")) {
 			return new com.liferay.sampleservicebuilder.NoSuchFooException(throwable.getMessage(),
 				throwable.getCause());
 		}
 
 		return throwable;
+	}
+
+	public static Object translateOutputBar(BaseModel<?> oldModel) {
+		BarClp newModel = new BarClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setBarRemoteModel(oldModel);
+
+		return newModel;
 	}
 
 	public static Object translateOutputFoo(BaseModel<?> oldModel) {
