@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.sampleservicebuilder.model.Bar;
 import com.liferay.sampleservicebuilder.model.Foo;
 import com.liferay.sampleservicebuilder.service.base.FooLocalServiceBaseImpl;
 import com.liferay.sampleservicebuilder.util.LocalObject;
@@ -64,6 +65,24 @@ public class FooLocalServiceImpl extends FooLocalServiceBaseImpl {
 
 		fooPersistence.update(foo);
 
+		// Bar
+
+		long barId = 1;
+
+		Bar bar = barPersistence.fetchByPrimaryKey(barId);
+
+		if (bar == null) {
+			bar = barPersistence.create(barId);
+
+			bar = barPersistence.update(bar);
+
+			barId = bar.getBarId();
+		}
+
+		// Association
+
+		barPersistence.addFoo(barId, foo);
+
 		// Asset
 
 		updateAsset(
@@ -76,6 +95,10 @@ public class FooLocalServiceImpl extends FooLocalServiceBaseImpl {
 		try {
 			assetEntryLocalService.deleteEntry(
 				Foo.class.getName(), foo.getFooId());
+
+			long barId = 1;
+
+			barPersistence.removeFoo(barId, foo);
 		}
 		catch (PortalException pe) {
 		}
@@ -97,7 +120,9 @@ public class FooLocalServiceImpl extends FooLocalServiceBaseImpl {
 	public List<Foo> getFoos(int start, int end, OrderByComparator obc)
 		throws SystemException {
 
-		return fooPersistence.findAll(start, end, obc);
+		long barId = 1;
+
+		return barPersistence.getFoos(barId, start, end, obc);
 	}
 
 	public List<Foo> getFoos(OrderByComparator obc) throws SystemException {
