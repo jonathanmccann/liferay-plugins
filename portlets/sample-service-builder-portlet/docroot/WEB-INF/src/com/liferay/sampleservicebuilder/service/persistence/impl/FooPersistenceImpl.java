@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.sampleservicebuilder.service.persistence;
+package com.liferay.sampleservicebuilder.service.persistence.impl;
 
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
@@ -44,6 +44,7 @@ import com.liferay.sampleservicebuilder.NoSuchFooException;
 import com.liferay.sampleservicebuilder.model.Foo;
 import com.liferay.sampleservicebuilder.model.impl.FooImpl;
 import com.liferay.sampleservicebuilder.model.impl.FooModelImpl;
+import com.liferay.sampleservicebuilder.service.persistence.FooPersistence;
 
 import java.io.Serializable;
 
