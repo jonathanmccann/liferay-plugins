@@ -93,8 +93,7 @@ public class KaleoTransitionLocalServiceWrapper
 	* @return the matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return _kaleoTransitionLocalService.dynamicQuery(dynamicQuery);
 	}
@@ -112,8 +111,7 @@ public class KaleoTransitionLocalServiceWrapper
 	* @return the range of matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end) {
 		return _kaleoTransitionLocalService.dynamicQuery(dynamicQuery, start,
@@ -134,11 +132,10 @@ public class KaleoTransitionLocalServiceWrapper
 	* @return the ordered range of matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
 		return _kaleoTransitionLocalService.dynamicQuery(dynamicQuery, start,
 			end, orderByComparator);
 	}
@@ -286,58 +283,50 @@ public class KaleoTransitionLocalServiceWrapper
 		com.liferay.portal.workflow.kaleo.model.KaleoNode sourceKaleoNode,
 		com.liferay.portal.workflow.kaleo.model.KaleoNode targetKaleoNode,
 		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _kaleoTransitionLocalService.addKaleoTransition(kaleoDefinitionId,
 			kaleoNodeId, transition, sourceKaleoNode, targetKaleoNode,
 			serviceContext);
 	}
 
 	@Override
-	public void deleteCompanyKaleoTransitions(long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public void deleteCompanyKaleoTransitions(long companyId) {
 		_kaleoTransitionLocalService.deleteCompanyKaleoTransitions(companyId);
 	}
 
 	@Override
-	public void deleteKaleoDefinitionKaleoTransitions(long kaleoDefinitionId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public void deleteKaleoDefinitionKaleoTransitions(long kaleoDefinitionId) {
 		_kaleoTransitionLocalService.deleteKaleoDefinitionKaleoTransitions(kaleoDefinitionId);
 	}
 
 	@Override
 	public com.liferay.portal.workflow.kaleo.model.KaleoTransition getDefaultKaleoTransition(
 		long kaleoNodeId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _kaleoTransitionLocalService.getDefaultKaleoTransition(kaleoNodeId);
 	}
 
 	@Override
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTransition> getKaleoDefinitionKaleoTransitions(
-		long kaleoDefinitionId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		long kaleoDefinitionId) {
 		return _kaleoTransitionLocalService.getKaleoDefinitionKaleoTransitions(kaleoDefinitionId);
 	}
 
 	@Override
 	public com.liferay.portal.workflow.kaleo.model.KaleoTransition getKaleoTransition(
 		long kaleoNodeId, java.lang.String name)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _kaleoTransitionLocalService.getKaleoTransition(kaleoNodeId, name);
 	}
 
 	@Override
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTransition> getKaleoTransitions(
-		long kaleoNodeId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		long kaleoNodeId) {
 		return _kaleoTransitionLocalService.getKaleoTransitions(kaleoNodeId);
 	}
 
 	@Override
-	public int getKaleoTransitionsCount(long kaleoNodeId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public int getKaleoTransitionsCount(long kaleoNodeId) {
 		return _kaleoTransitionLocalService.getKaleoTransitionsCount(kaleoNodeId);
 	}
 

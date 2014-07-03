@@ -91,8 +91,7 @@ public interface KaleoTaskAssignmentLocalService extends BaseLocalService,
 	* @param dynamicQuery the dynamic query
 	* @return the matching rows
 	*/
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery);
 
 	/**
@@ -107,8 +106,7 @@ public interface KaleoTaskAssignmentLocalService extends BaseLocalService,
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @return the range of matching rows
 	*/
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end);
 
@@ -125,11 +123,10 @@ public interface KaleoTaskAssignmentLocalService extends BaseLocalService,
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching rows
 	*/
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator);
 
 	/**
 	* Returns the number of rows that match the dynamic query.
@@ -240,37 +237,29 @@ public interface KaleoTaskAssignmentLocalService extends BaseLocalService,
 		long kaleoDefinitionId,
 		com.liferay.portal.workflow.kaleo.definition.Assignment assignment,
 		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.portal.kernel.exception.PortalException;
 
-	public void deleteCompanyKaleoTaskAssignments(long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public void deleteCompanyKaleoTaskAssignments(long companyId);
 
 	public void deleteKaleoDefinitionKaleoTaskAssignments(
-		long kaleoDefinitionId)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		long kaleoDefinitionId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment> getKaleoTaskAssignments(
-		long kaleoTaskId)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		long kaleoTaskId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment> getKaleoTaskAssignments(
-		long kaleoTaskId, java.lang.String assigneeClassName)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		long kaleoTaskId, java.lang.String assigneeClassName);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment> getKaleoTaskAssignments(
-		java.lang.String kaleoClassName, long kaleoClassPK)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		java.lang.String kaleoClassName, long kaleoClassPK);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getKaleoTaskAssignmentsCount(long kaleoTaskId)
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public int getKaleoTaskAssignmentsCount(long kaleoTaskId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getKaleoTaskAssignmentsCount(long kaleoTaskId,
-		java.lang.String assigneeClassName)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		java.lang.String assigneeClassName);
 }

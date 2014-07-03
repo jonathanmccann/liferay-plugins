@@ -67,12 +67,10 @@ public class WallEntryLocalServiceUtil {
 	* @param wallEntryId the primary key of the wall entry
 	* @return the wall entry that was removed
 	* @throws PortalException if a wall entry with the primary key could not be found
-	* @throws SystemException
 	*/
 	public static com.liferay.socialnetworking.model.WallEntry deleteWallEntry(
 		long wallEntryId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().deleteWallEntry(wallEntryId);
 	}
 
@@ -82,12 +80,10 @@ public class WallEntryLocalServiceUtil {
 	* @param wallEntry the wall entry
 	* @return the wall entry that was removed
 	* @throws PortalException
-	* @throws SystemException
 	*/
 	public static com.liferay.socialnetworking.model.WallEntry deleteWallEntry(
 		com.liferay.socialnetworking.model.WallEntry wallEntry)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().deleteWallEntry(wallEntry);
 	}
 
@@ -101,8 +97,7 @@ public class WallEntryLocalServiceUtil {
 	* @param dynamicQuery the dynamic query
 	* @return the matching rows
 	*/
-	@SuppressWarnings("rawtypes")
-	public static java.util.List dynamicQuery(
+	public static <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
@@ -119,8 +114,7 @@ public class WallEntryLocalServiceUtil {
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @return the range of matching rows
 	*/
-	@SuppressWarnings("rawtypes")
-	public static java.util.List dynamicQuery(
+	public static <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end) {
 		return getService().dynamicQuery(dynamicQuery, start, end);
@@ -139,11 +133,10 @@ public class WallEntryLocalServiceUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching rows
 	*/
-	@SuppressWarnings("rawtypes")
-	public static java.util.List dynamicQuery(
+	public static <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
 		return getService()
 				   .dynamicQuery(dynamicQuery, start, end, orderByComparator);
 	}
@@ -183,12 +176,10 @@ public class WallEntryLocalServiceUtil {
 	* @param wallEntryId the primary key of the wall entry
 	* @return the wall entry
 	* @throws PortalException if a wall entry with the primary key could not be found
-	* @throws SystemException
 	*/
 	public static com.liferay.socialnetworking.model.WallEntry getWallEntry(
 		long wallEntryId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getWallEntry(wallEntryId);
 	}
 
@@ -274,39 +265,34 @@ public class WallEntryLocalServiceUtil {
 	public static com.liferay.socialnetworking.model.WallEntry addWallEntry(
 		long groupId, long userId, java.lang.String comments,
 		com.liferay.portal.theme.ThemeDisplay themeDisplay)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().addWallEntry(groupId, userId, comments, themeDisplay);
 	}
 
 	public static void deleteWallEntries(long groupId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		getService().deleteWallEntries(groupId);
 	}
 
 	public static java.util.List<com.liferay.socialnetworking.model.WallEntry> getWallEntries(
-		long groupId, int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		long groupId, int start, int end) {
 		return getService().getWallEntries(groupId, start, end);
 	}
 
-	public static int getWallEntriesCount(long groupId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public static int getWallEntriesCount(long groupId) {
 		return getService().getWallEntriesCount(groupId);
 	}
 
 	public static java.util.List<com.liferay.socialnetworking.model.WallEntry> getWallToWallEntries(
 		long groupId1, long groupId2, long userId1, long userId2, int start,
-		int end) throws com.liferay.portal.kernel.exception.SystemException {
+		int end) {
 		return getService()
 				   .getWallToWallEntries(groupId1, groupId2, userId1, userId2,
 			start, end);
 	}
 
 	public static int getWallToWallEntriesCount(long groupId1, long groupId2,
-		long userId1, long userId2)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		long userId1, long userId2) {
 		return getService()
 				   .getWallToWallEntriesCount(groupId1, groupId2, userId1,
 			userId2);
@@ -314,8 +300,7 @@ public class WallEntryLocalServiceUtil {
 
 	public static com.liferay.socialnetworking.model.WallEntry updateWallEntry(
 		long wallEntryId, java.lang.String comments)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().updateWallEntry(wallEntryId, comments);
 	}
 

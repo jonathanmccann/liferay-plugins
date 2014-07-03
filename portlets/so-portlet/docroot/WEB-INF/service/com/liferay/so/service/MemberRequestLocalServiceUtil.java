@@ -95,8 +95,7 @@ public class MemberRequestLocalServiceUtil {
 	* @param dynamicQuery the dynamic query
 	* @return the matching rows
 	*/
-	@SuppressWarnings("rawtypes")
-	public static java.util.List dynamicQuery(
+	public static <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
@@ -113,8 +112,7 @@ public class MemberRequestLocalServiceUtil {
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @return the range of matching rows
 	*/
-	@SuppressWarnings("rawtypes")
-	public static java.util.List dynamicQuery(
+	public static <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end) {
 		return getService().dynamicQuery(dynamicQuery, start, end);
@@ -133,11 +131,10 @@ public class MemberRequestLocalServiceUtil {
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching rows
 	*/
-	@SuppressWarnings("rawtypes")
-	public static java.util.List dynamicQuery(
+	public static <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
 		return getService()
 				   .dynamicQuery(dynamicQuery, start, end, orderByComparator);
 	}
@@ -268,8 +265,7 @@ public class MemberRequestLocalServiceUtil {
 		java.lang.String receiverEmailAddress, long invitedRoleId,
 		long invitedTeamId,
 		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService()
 				   .addMemberRequest(userId, groupId, receiverUserId,
 			receiverEmailAddress, invitedRoleId, invitedTeamId, serviceContext);
@@ -278,8 +274,7 @@ public class MemberRequestLocalServiceUtil {
 	public static void addMemberRequests(long userId, long groupId,
 		long[] receiverUserIds, long invitedRoleId, long invitedTeamId,
 		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		getService()
 			.addMemberRequests(userId, groupId, receiverUserIds, invitedRoleId,
 			invitedTeamId, serviceContext);
@@ -289,8 +284,7 @@ public class MemberRequestLocalServiceUtil {
 		java.lang.String[] emailAddresses, long invitedRoleId,
 		long invitedTeamId,
 		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		getService()
 			.addMemberRequests(userId, groupId, emailAddresses, invitedRoleId,
 			invitedTeamId, serviceContext);
@@ -298,39 +292,34 @@ public class MemberRequestLocalServiceUtil {
 
 	public static com.liferay.so.model.MemberRequest getMemberRequest(
 		long groupId, long receiverUserId, int status)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getMemberRequest(groupId, receiverUserId, status);
 	}
 
 	public static java.util.List<com.liferay.so.model.MemberRequest> getReceiverMemberRequest(
-		long receiverUserId, int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		long receiverUserId, int start, int end) {
 		return getService().getReceiverMemberRequest(receiverUserId, start, end);
 	}
 
-	public static int getReceiverMemberRequestCount(long receiverUserId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public static int getReceiverMemberRequestCount(long receiverUserId) {
 		return getService().getReceiverMemberRequestCount(receiverUserId);
 	}
 
 	public static java.util.List<com.liferay.so.model.MemberRequest> getReceiverStatusMemberRequest(
-		long receiverUserId, int status, int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		long receiverUserId, int status, int start, int end) {
 		return getService()
 				   .getReceiverStatusMemberRequest(receiverUserId, status,
 			start, end);
 	}
 
 	public static int getReceiverStatusMemberRequestCount(long receiverUserId,
-		int status) throws com.liferay.portal.kernel.exception.SystemException {
+		int status) {
 		return getService()
 				   .getReceiverStatusMemberRequestCount(receiverUserId, status);
 	}
 
 	public static boolean hasPendingMemberRequest(long groupId,
-		long receiverUserId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		long receiverUserId) {
 		return getService().hasPendingMemberRequest(groupId, receiverUserId);
 	}
 
@@ -342,8 +331,7 @@ public class MemberRequestLocalServiceUtil {
 
 	public static com.liferay.so.model.MemberRequest updateMemberRequest(
 		java.lang.String key, long receiverUserId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().updateMemberRequest(key, receiverUserId);
 	}
 

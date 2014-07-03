@@ -89,8 +89,7 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
 	* @return the matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return _entryLocalService.dynamicQuery(dynamicQuery);
 	}
@@ -108,8 +107,7 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
 	* @return the range of matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end) {
 		return _entryLocalService.dynamicQuery(dynamicQuery, start, end);
@@ -129,11 +127,10 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
 	* @return the ordered range of matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
 		return _entryLocalService.dynamicQuery(dynamicQuery, start, end,
 			orderByComparator);
 	}
@@ -274,50 +271,44 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
 	public com.liferay.contacts.model.Entry addEntry(long userId,
 		java.lang.String fullName, java.lang.String emailAddress,
 		java.lang.String comments)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _entryLocalService.addEntry(userId, fullName, emailAddress,
 			comments);
 	}
 
 	@Override
 	public java.util.List<com.liferay.contacts.model.Entry> getEntries(
-		long userId, int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		long userId, int start, int end) {
 		return _entryLocalService.getEntries(userId, start, end);
 	}
 
 	@Override
-	public int getEntriesCount(long userId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public int getEntriesCount(long userId) {
 		return _entryLocalService.getEntriesCount(userId);
 	}
 
 	@Override
 	public java.util.List<com.liferay.contacts.model.Entry> search(
-		long userId, java.lang.String keywords, int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		long userId, java.lang.String keywords, int start, int end) {
 		return _entryLocalService.search(userId, keywords, start, end);
 	}
 
 	@Override
-	public int searchCount(long userId, java.lang.String keywords)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public int searchCount(long userId, java.lang.String keywords) {
 		return _entryLocalService.searchCount(userId, keywords);
 	}
 
 	@Override
 	public java.util.List<com.liferay.portal.model.BaseModel<?>> searchUsersAndContacts(
 		long companyId, long userId, java.lang.String keywords, int start,
-		int end) throws com.liferay.portal.kernel.exception.SystemException {
+		int end) {
 		return _entryLocalService.searchUsersAndContacts(companyId, userId,
 			keywords, start, end);
 	}
 
 	@Override
 	public int searchUsersAndContactsCount(long companyId, long userId,
-		java.lang.String keywords)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		java.lang.String keywords) {
 		return _entryLocalService.searchUsersAndContactsCount(companyId,
 			userId, keywords);
 	}
@@ -326,8 +317,7 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
 	public com.liferay.contacts.model.Entry updateEntry(long entryId,
 		java.lang.String fullName, java.lang.String emailAddress,
 		java.lang.String comments)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _entryLocalService.updateEntry(entryId, fullName, emailAddress,
 			comments);
 	}

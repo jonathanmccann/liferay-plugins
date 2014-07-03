@@ -92,8 +92,7 @@ public class KaleoActionLocalServiceWrapper implements KaleoActionLocalService,
 	* @return the matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return _kaleoActionLocalService.dynamicQuery(dynamicQuery);
 	}
@@ -111,8 +110,7 @@ public class KaleoActionLocalServiceWrapper implements KaleoActionLocalService,
 	* @return the range of matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end) {
 		return _kaleoActionLocalService.dynamicQuery(dynamicQuery, start, end);
@@ -132,11 +130,10 @@ public class KaleoActionLocalServiceWrapper implements KaleoActionLocalService,
 	* @return the ordered range of matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
 		return _kaleoActionLocalService.dynamicQuery(dynamicQuery, start, end,
 			orderByComparator);
 	}
@@ -283,29 +280,25 @@ public class KaleoActionLocalServiceWrapper implements KaleoActionLocalService,
 		long kaleoDefinitionId, java.lang.String kaleoNodeName,
 		com.liferay.portal.workflow.kaleo.definition.Action action,
 		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _kaleoActionLocalService.addKaleoAction(kaleoClassName,
 			kaleoClassPK, kaleoDefinitionId, kaleoNodeName, action,
 			serviceContext);
 	}
 
 	@Override
-	public void deleteCompanyKaleoActions(long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public void deleteCompanyKaleoActions(long companyId) {
 		_kaleoActionLocalService.deleteCompanyKaleoActions(companyId);
 	}
 
 	@Override
-	public void deleteKaleoDefinitionKaleoActions(long kaleoDefinitionId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public void deleteKaleoDefinitionKaleoActions(long kaleoDefinitionId) {
 		_kaleoActionLocalService.deleteKaleoDefinitionKaleoActions(kaleoDefinitionId);
 	}
 
 	@Override
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoAction> getKaleoActions(
-		java.lang.String kaleoClassName, long kaleoClassPK)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		java.lang.String kaleoClassName, long kaleoClassPK) {
 		return _kaleoActionLocalService.getKaleoActions(kaleoClassName,
 			kaleoClassPK);
 	}
@@ -313,8 +306,7 @@ public class KaleoActionLocalServiceWrapper implements KaleoActionLocalService,
 	@Override
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoAction> getKaleoActions(
 		java.lang.String kaleoClassName, long kaleoClassPK,
-		java.lang.String executionType)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		java.lang.String executionType) {
 		return _kaleoActionLocalService.getKaleoActions(kaleoClassName,
 			kaleoClassPK, executionType);
 	}

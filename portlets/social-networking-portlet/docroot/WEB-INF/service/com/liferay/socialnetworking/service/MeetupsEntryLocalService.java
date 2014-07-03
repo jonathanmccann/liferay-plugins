@@ -69,12 +69,10 @@ public interface MeetupsEntryLocalService extends BaseLocalService,
 	* @param meetupsEntryId the primary key of the meetups entry
 	* @return the meetups entry that was removed
 	* @throws PortalException if a meetups entry with the primary key could not be found
-	* @throws SystemException
 	*/
 	public com.liferay.socialnetworking.model.MeetupsEntry deleteMeetupsEntry(
 		long meetupsEntryId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.portal.kernel.exception.PortalException;
 
 	/**
 	* Deletes the meetups entry from the database. Also notifies the appropriate model listeners.
@@ -93,8 +91,7 @@ public interface MeetupsEntryLocalService extends BaseLocalService,
 	* @param dynamicQuery the dynamic query
 	* @return the matching rows
 	*/
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery);
 
 	/**
@@ -109,8 +106,7 @@ public interface MeetupsEntryLocalService extends BaseLocalService,
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @return the range of matching rows
 	*/
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end);
 
@@ -127,11 +123,10 @@ public interface MeetupsEntryLocalService extends BaseLocalService,
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching rows
 	*/
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
+		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator);
 
 	/**
 	* Returns the number of rows that match the dynamic query.
@@ -243,17 +238,15 @@ public interface MeetupsEntryLocalService extends BaseLocalService,
 		int startDateHour, int startDateMinute, int endDateMonth,
 		int endDateDay, int endDateYear, int endDateHour, int endDateMinute,
 		int totalAttendees, int maxAttendees, double price, byte[] thumbnail)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.portal.kernel.exception.PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.socialnetworking.model.MeetupsEntry> getMeetupsEntriesByCompany(
-		long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		long companyId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.socialnetworking.model.MeetupsEntry> getMeetupsEntriesByUser(
-		long userId) throws com.liferay.portal.kernel.exception.SystemException;
+		long userId);
 
 	public com.liferay.socialnetworking.model.MeetupsEntry updateMeetupsEntry(
 		long userId, long meetupsEntryId, java.lang.String title,
@@ -262,6 +255,5 @@ public interface MeetupsEntryLocalService extends BaseLocalService,
 		int endDateMonth, int endDateDay, int endDateYear, int endDateHour,
 		int endDateMinute, int totalAttendees, int maxAttendees, double price,
 		byte[] thumbnail)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.portal.kernel.exception.PortalException;
 }

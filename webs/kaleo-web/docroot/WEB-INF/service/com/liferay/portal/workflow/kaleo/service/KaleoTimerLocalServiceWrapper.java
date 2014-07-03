@@ -92,8 +92,7 @@ public class KaleoTimerLocalServiceWrapper implements KaleoTimerLocalService,
 	* @return the matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return _kaleoTimerLocalService.dynamicQuery(dynamicQuery);
 	}
@@ -111,8 +110,7 @@ public class KaleoTimerLocalServiceWrapper implements KaleoTimerLocalService,
 	* @return the range of matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end) {
 		return _kaleoTimerLocalService.dynamicQuery(dynamicQuery, start, end);
@@ -132,11 +130,10 @@ public class KaleoTimerLocalServiceWrapper implements KaleoTimerLocalService,
 	* @return the ordered range of matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
 		return _kaleoTimerLocalService.dynamicQuery(dynamicQuery, start, end,
 			orderByComparator);
 	}
@@ -283,24 +280,21 @@ public class KaleoTimerLocalServiceWrapper implements KaleoTimerLocalService,
 		long kaleoDefinitionId,
 		com.liferay.portal.workflow.kaleo.definition.Timer timer,
 		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _kaleoTimerLocalService.addKaleoTimer(kaleoClassName,
 			kaleoClassPK, kaleoDefinitionId, timer, serviceContext);
 	}
 
 	@Override
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTimer> getKaleoTimers(
-		java.lang.String kaleoClassName, long kaleoClassPK)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		java.lang.String kaleoClassName, long kaleoClassPK) {
 		return _kaleoTimerLocalService.getKaleoTimers(kaleoClassName,
 			kaleoClassPK);
 	}
 
 	@Override
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTimer> getKaleoTimers(
-		java.lang.String kaleoClassName, long kaleoClassPK, boolean blocking)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		java.lang.String kaleoClassName, long kaleoClassPK, boolean blocking) {
 		return _kaleoTimerLocalService.getKaleoTimers(kaleoClassName,
 			kaleoClassPK, blocking);
 	}

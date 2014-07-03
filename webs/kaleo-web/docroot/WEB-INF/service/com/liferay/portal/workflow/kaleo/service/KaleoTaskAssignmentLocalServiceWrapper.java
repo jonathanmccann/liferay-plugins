@@ -93,8 +93,7 @@ public class KaleoTaskAssignmentLocalServiceWrapper
 	* @return the matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return _kaleoTaskAssignmentLocalService.dynamicQuery(dynamicQuery);
 	}
@@ -112,8 +111,7 @@ public class KaleoTaskAssignmentLocalServiceWrapper
 	* @return the range of matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end) {
 		return _kaleoTaskAssignmentLocalService.dynamicQuery(dynamicQuery,
@@ -134,11 +132,10 @@ public class KaleoTaskAssignmentLocalServiceWrapper
 	* @return the ordered range of matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
 		return _kaleoTaskAssignmentLocalService.dynamicQuery(dynamicQuery,
 			start, end, orderByComparator);
 	}
@@ -286,58 +283,50 @@ public class KaleoTaskAssignmentLocalServiceWrapper
 		long kaleoDefinitionId,
 		com.liferay.portal.workflow.kaleo.definition.Assignment assignment,
 		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _kaleoTaskAssignmentLocalService.addKaleoTaskAssignment(kaleoClassName,
 			kaleoClassPK, kaleoDefinitionId, assignment, serviceContext);
 	}
 
 	@Override
-	public void deleteCompanyKaleoTaskAssignments(long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public void deleteCompanyKaleoTaskAssignments(long companyId) {
 		_kaleoTaskAssignmentLocalService.deleteCompanyKaleoTaskAssignments(companyId);
 	}
 
 	@Override
 	public void deleteKaleoDefinitionKaleoTaskAssignments(
-		long kaleoDefinitionId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		long kaleoDefinitionId) {
 		_kaleoTaskAssignmentLocalService.deleteKaleoDefinitionKaleoTaskAssignments(kaleoDefinitionId);
 	}
 
 	@Override
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment> getKaleoTaskAssignments(
-		long kaleoTaskId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		long kaleoTaskId) {
 		return _kaleoTaskAssignmentLocalService.getKaleoTaskAssignments(kaleoTaskId);
 	}
 
 	@Override
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment> getKaleoTaskAssignments(
-		long kaleoTaskId, java.lang.String assigneeClassName)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		long kaleoTaskId, java.lang.String assigneeClassName) {
 		return _kaleoTaskAssignmentLocalService.getKaleoTaskAssignments(kaleoTaskId,
 			assigneeClassName);
 	}
 
 	@Override
 	public java.util.List<com.liferay.portal.workflow.kaleo.model.KaleoTaskAssignment> getKaleoTaskAssignments(
-		java.lang.String kaleoClassName, long kaleoClassPK)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		java.lang.String kaleoClassName, long kaleoClassPK) {
 		return _kaleoTaskAssignmentLocalService.getKaleoTaskAssignments(kaleoClassName,
 			kaleoClassPK);
 	}
 
 	@Override
-	public int getKaleoTaskAssignmentsCount(long kaleoTaskId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public int getKaleoTaskAssignmentsCount(long kaleoTaskId) {
 		return _kaleoTaskAssignmentLocalService.getKaleoTaskAssignmentsCount(kaleoTaskId);
 	}
 
 	@Override
 	public int getKaleoTaskAssignmentsCount(long kaleoTaskId,
-		java.lang.String assigneeClassName)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		java.lang.String assigneeClassName) {
 		return _kaleoTaskAssignmentLocalService.getKaleoTaskAssignmentsCount(kaleoTaskId,
 			assigneeClassName);
 	}

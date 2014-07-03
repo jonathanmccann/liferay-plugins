@@ -93,8 +93,7 @@ public class KaleoConditionLocalServiceWrapper
 	* @return the matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return _kaleoConditionLocalService.dynamicQuery(dynamicQuery);
 	}
@@ -112,8 +111,7 @@ public class KaleoConditionLocalServiceWrapper
 	* @return the range of matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end) {
 		return _kaleoConditionLocalService.dynamicQuery(dynamicQuery, start, end);
@@ -133,11 +131,10 @@ public class KaleoConditionLocalServiceWrapper
 	* @return the ordered range of matching rows
 	*/
 	@Override
-	@SuppressWarnings("rawtypes")
-	public java.util.List dynamicQuery(
+	public <T> java.util.List<T> dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
+		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
 		return _kaleoConditionLocalService.dynamicQuery(dynamicQuery, start,
 			end, orderByComparator);
 	}
@@ -283,29 +280,25 @@ public class KaleoConditionLocalServiceWrapper
 		long kaleoDefinitionId, long kaleoNodeId,
 		com.liferay.portal.workflow.kaleo.definition.Condition condition,
 		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _kaleoConditionLocalService.addKaleoCondition(kaleoDefinitionId,
 			kaleoNodeId, condition, serviceContext);
 	}
 
 	@Override
-	public void deleteCompanyKaleoConditions(long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public void deleteCompanyKaleoConditions(long companyId) {
 		_kaleoConditionLocalService.deleteCompanyKaleoConditions(companyId);
 	}
 
 	@Override
-	public void deleteKaleoDefinitionKaleoCondition(long kaleoDefinitionId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public void deleteKaleoDefinitionKaleoCondition(long kaleoDefinitionId) {
 		_kaleoConditionLocalService.deleteKaleoDefinitionKaleoCondition(kaleoDefinitionId);
 	}
 
 	@Override
 	public com.liferay.portal.workflow.kaleo.model.KaleoCondition getKaleoNodeKaleoCondition(
 		long kaleoNodeId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _kaleoConditionLocalService.getKaleoNodeKaleoCondition(kaleoNodeId);
 	}
 
