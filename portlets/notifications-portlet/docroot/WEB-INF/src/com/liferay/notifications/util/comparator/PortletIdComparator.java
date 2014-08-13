@@ -12,16 +12,30 @@
  * details.
  */
 
-package com.liferay.pushnotifications.util;
+package com.liferay.notifications.util.comparator;
+
+import com.liferay.portal.util.PortalUtil;
+
+import java.util.Comparator;
+import java.util.Locale;
 
 /**
- * @author Bruno Farache
+ * @author Matthew Kong
  */
-public class ActionKeys
-	extends com.liferay.portal.security.permission.ActionKeys {
+public class PortletIdComparator implements Comparator<String> {
 
-	public static final String ADD_DEVICE = "ADD_DEVICE";
+	public PortletIdComparator(Locale locale) {
+		_locale = locale;
+	}
 
-	public static final String SEND_NOTIFICATION = "SEND_NOTIFICATION";
+	@Override
+	public int compare(String portletId1, String portletId2) {
+		String portletTitle1 = PortalUtil.getPortletTitle(portletId1, _locale);
+		String portletTitle2 = PortalUtil.getPortletTitle(portletId2, _locale);
+
+		return portletTitle1.compareTo(portletTitle2);
+	}
+
+	private Locale _locale;
 
 }
