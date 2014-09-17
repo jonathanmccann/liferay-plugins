@@ -323,8 +323,8 @@ public class SolrIndexSearcher extends BaseIndexSearcher {
 				queryTerms.add(matcher.group(1));
 			}
 
-			snippet = StringUtil.replace(snippet, "<em>", StringPool.BLANK);
-			snippet = StringUtil.replace(snippet, "</em>", StringPool.BLANK);
+			snippet = StringUtil.replace(snippet, "<em_solr>", StringPool.BLANK);
+			snippet = StringUtil.replace(snippet, "</em_solr>", StringPool.BLANK);
 		}
 
 		document.addText(
@@ -509,7 +509,7 @@ public class SolrIndexSearcher extends BaseIndexSearcher {
 	private static Log _log = LogFactoryUtil.getLog(SolrIndexSearcher.class);
 
 	private FacetProcessor<SolrQuery> _facetProcessor;
-	private Pattern _pattern = Pattern.compile("<em>(.*?)</em>");
+	private Pattern _pattern = Pattern.compile("<em_solr>(.*?)</em_solr>");
 	private SolrServer _solrServer;
 	private boolean _swallowException;
 
