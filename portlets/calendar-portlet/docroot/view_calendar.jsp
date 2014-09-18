@@ -34,6 +34,10 @@ if (userCalendarResource != null) {
 
 List<Calendar> otherCalendars = new ArrayList<Calendar>();
 
+if (globalCalendarResource != null) {
+	otherCalendars.addAll(CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, new long[] {globalCalendarResource.getCalendarResourceId()}, null, true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, (OrderByComparator)null));
+}
+
 long[] calendarIds = StringUtil.split(SessionClicks.get(request, "calendar-portlet-other-calendars", StringPool.BLANK), 0L);
 
 for (long calendarId : calendarIds) {
