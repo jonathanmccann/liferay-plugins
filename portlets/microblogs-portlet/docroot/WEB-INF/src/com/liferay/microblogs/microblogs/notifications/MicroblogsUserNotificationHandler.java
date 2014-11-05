@@ -77,8 +77,7 @@ public class MicroblogsUserNotificationHandler
 					"x-commented-on-your-post", userFullName);
 			}
 			else if (MicroblogsUtil.hasReplied(
-						parentMicroblogsEntryId,
-						serviceContext.getUserId())) {
+						parentMicroblogsEntryId, serviceContext.getUserId())) {
 
 				User receiverUser = UserLocalServiceUtil.fetchUser(
 					microblogsEntry.getReceiverUserId());

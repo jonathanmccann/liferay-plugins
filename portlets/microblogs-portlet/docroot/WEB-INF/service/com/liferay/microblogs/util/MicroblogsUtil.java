@@ -217,7 +217,7 @@ public class MicroblogsUtil {
 	}
 
 	public static boolean isTaggedUser(
-			long microblogsEntryId, boolean checkParent, long userId) {
+		long microblogsEntryId, boolean checkParent, long userId) {
 
 		MicroblogsEntry microblogsEntry =
 			MicroblogsEntryLocalServiceUtil.fetchMicroblogsEntry(
