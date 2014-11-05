@@ -71,15 +71,13 @@ public class MicroblogsUserNotificationHandler
 			return null;
 		}
 
-		String title = getBodyTitle(microblogsEntry, serviceContext);
-
-		String body = MicroblogsUtil.getProcessedContent(
-			StringUtil.shorten(microblogsEntry.getContent(), 50),
-			serviceContext);
-
 		return StringUtil.replace(
 			getBodyTemplate(), new String[] {"[$BODY$]", "[$TITLE$]"},
-			new String[] {body, title});
+			new String[] {
+				HtmlUtil.escape(
+					StringUtil.shorten(jsonObject.getString("entryTitle"), 70)),
+				getBodyTitle(microblogsEntry, serviceContext)
+			});
 	}
 
 	protected String getBodyTitle(

@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.process.ProcessException;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Subscription;
 import com.liferay.portal.model.User;
@@ -331,7 +332,9 @@ public class MicroblogsEntryLocalServiceImpl
 		notificationEventJSONObject.put(
 			"classPK", microblogsEntry.getMicroblogsEntryId());
 		notificationEventJSONObject.put(
-			"entryTitle", microblogsEntry.getContent());
+			"entryTitle", MicroblogsUtil.getProcessedContent(
+				StringUtil.shorten(microblogsEntry.getContent(), 50),
+				serviceContext));
 
 		AssetRendererFactory assetRendererFactory =
 			AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByClassName(
