@@ -22,22 +22,15 @@ import com.liferay.microblogs.model.MicroblogsEntryConstants;
 import com.liferay.microblogs.service.MicroblogsEntryLocalServiceUtil;
 import com.liferay.microblogs.util.MicroblogsUtil;
 import com.liferay.microblogs.util.PortletKeys;
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.notifications.BaseModelUserNotificationHandler;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.User;
-import com.liferay.portal.model.UserNotificationEvent;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.service.UserNotificationEventLocalServiceUtil;
 import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.asset.AssetRendererFactoryRegistryUtil;
 import com.liferay.portlet.asset.model.AssetRenderer;
-import com.liferay.portlet.asset.model.AssetRendererFactory;
 
 /**
  * @author Jonathan Lee
@@ -50,36 +43,9 @@ public class MicroblogsUserNotificationHandler
 	}
 
 	@Override
-	protected String getBody(
-			UserNotificationEvent userNotificationEvent,
-			ServiceContext serviceContext)
-		throws Exception {
-
-		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
-			userNotificationEvent.getPayload());
-
-		AssetRenderer assetRenderer = getAssetRenderer(jsonObject);
-
-		if (assetRenderer == null) {
-			UserNotificationEventLocalServiceUtil.deleteUserNotificationEvent(
-				userNotificationEvent.getUserNotificationEventId());
-
-			return null;
-		}
-
-		return StringUtil.replace(
-			getBodyTemplate(), new String[] {"[$BODY$]", "[$TITLE$]"},
-			new String[] {
-				HtmlUtil.escape(
-					StringUtil.shorten(jsonObject.getString("entryTitle"), 70)),
-				getBodyTitle(jsonObject, assetRenderer, serviceContext)
-			});
-	}
-
-	protected String getBodyTitle(
-			JSONObject jsonObject, AssetRenderer assetRenderer,
-			ServiceContext serviceContext)
-		throws PortalException {
+	protected String getTitle(
+		JSONObject jsonObject, AssetRenderer assetRenderer,
+		ServiceContext serviceContext) {
 
 		MicroblogsEntry microblogsEntry =
 			MicroblogsEntryLocalServiceUtil.fetchMicroblogsEntry(

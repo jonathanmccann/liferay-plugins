@@ -26,6 +26,8 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.util.HtmlUtil;
@@ -184,8 +186,8 @@ public class MicroblogsUtil {
 		return receiverUserIds;
 	}
 
-	public static boolean hasReplied(long parentMicroblogsEntryId, long userId)
-		throws PortalException {
+	public static boolean hasReplied(
+		long parentMicroblogsEntryId, long userId) {
 
 		List<MicroblogsEntry> microblogsEntries =
 			new ArrayList<MicroblogsEntry>();
@@ -197,9 +199,13 @@ public class MicroblogsUtil {
 					parentMicroblogsEntryId, QueryUtil.ALL_POS,
 					QueryUtil.ALL_POS));
 
-		microblogsEntries.add(
-			MicroblogsEntryLocalServiceUtil.getMicroblogsEntry(
-				parentMicroblogsEntryId));
+		MicroblogsEntry parentMicroblogsEntry =
+			MicroblogsEntryLocalServiceUtil.fetchMicroblogsEntry(
+				parentMicroblogsEntryId);
+
+		if (parentMicroblogsEntry != null) {
+			microblogsEntries.add(parentMicroblogsEntry);
+		}
 
 		for (MicroblogsEntry microblogsEntry : microblogsEntries) {
 			if (microblogsEntry.getUserId() == userId) {
@@ -211,8 +217,7 @@ public class MicroblogsUtil {
 	}
 
 	public static boolean isTaggedUser(
-			long microblogsEntryId, boolean checkParent, long userId)
-		throws PortalException {
+			long microblogsEntryId, boolean checkParent, long userId) {
 
 		MicroblogsEntry microblogsEntry =
 			MicroblogsEntryLocalServiceUtil.fetchMicroblogsEntry(
@@ -239,9 +244,13 @@ public class MicroblogsUtil {
 					parentMicroblogsEntryId, QueryUtil.ALL_POS,
 					QueryUtil.ALL_POS));
 
-		microblogsEntries.add(
-			MicroblogsEntryLocalServiceUtil.getMicroblogsEntry(
-				parentMicroblogsEntryId));
+		MicroblogsEntry parentMicroblogsEntry =
+			MicroblogsEntryLocalServiceUtil.fetchMicroblogsEntry(
+				parentMicroblogsEntryId);
+
+		if (parentMicroblogsEntry != null) {
+			microblogsEntries.add(parentMicroblogsEntry);
+		}
 
 		for (MicroblogsEntry curMicroblogsEntry : microblogsEntries) {
 			if (isTaggedUser(curMicroblogsEntry, userId)) {
@@ -253,15 +262,22 @@ public class MicroblogsUtil {
 	}
 
 	protected static boolean isTaggedUser(
-			MicroblogsEntry microblogsEntry, long userId)
-		throws PortalException {
+		MicroblogsEntry microblogsEntry, long userId) {
 
 		List<String> screenNames = getScreenNames(microblogsEntry.getContent());
 
 		for (String screenName : screenNames) {
-			long screenNameUserId =
-				UserLocalServiceUtil.getUserIdByScreenName(
+			long screenNameUserId = 0;
+
+			try {
+				screenNameUserId = UserLocalServiceUtil.getUserIdByScreenName(
 					microblogsEntry.getCompanyId(), screenName);
+			}
+			catch (PortalException pe) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(pe.getMessage(), pe);
+				}
+			}
 
 			if (screenNameUserId == userId) {
 				return true;
@@ -307,6 +323,9 @@ public class MicroblogsUtil {
 					portletURL.setWindowState(LiferayWindowState.NORMAL);
 				}
 				catch (WindowStateException wse) {
+					if (_log.isDebugEnabled()) {
+						_log.debug(wse.getMessage(), wse);
+					}
 				}
 			}
 			else {
@@ -320,6 +339,9 @@ public class MicroblogsUtil {
 					portletURL.setWindowState(WindowState.MAXIMIZED);
 				}
 				catch (WindowStateException wse) {
+					if (_log.isDebugEnabled()) {
+						_log.debug(wse.getMessage(), wse);
+					}
 				}
 			}
 
@@ -386,11 +408,16 @@ public class MicroblogsUtil {
 				content = StringUtil.replace(content, result, userLink);
 			}
 			catch (NoSuchUserException nsue) {
+				if ( _log.isDebugEnabled()) {
+					_log.debug(nsue.getMessage(), nsue);
+				}
 			}
 		}
 
 		return content;
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(MicroblogsUtil.class);
 
 	private static Pattern _hashtagPattern = Pattern.compile("\\#[a-zA-Z]\\w*");
 	private static Pattern _userTagPattern = Pattern.compile("\\[\\@\\S*\\]");
