@@ -58,13 +58,9 @@ public class MicroblogsUserNotificationHandler
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
 			userNotificationEvent.getPayload());
 
-		long microblogsEntryId = jsonObject.getLong("classPK");
+		AssetRenderer assetRenderer = getAssetRenderer(jsonObject);
 
-		MicroblogsEntry microblogsEntry =
-			MicroblogsEntryLocalServiceUtil.fetchMicroblogsEntry(
-				microblogsEntryId);
-
-		if (microblogsEntry == null) {
+		if (assetRenderer == null) {
 			UserNotificationEventLocalServiceUtil.deleteUserNotificationEvent(
 				userNotificationEvent.getUserNotificationEventId());
 
@@ -76,13 +72,18 @@ public class MicroblogsUserNotificationHandler
 			new String[] {
 				HtmlUtil.escape(
 					StringUtil.shorten(jsonObject.getString("entryTitle"), 70)),
-				getBodyTitle(microblogsEntry, serviceContext)
+				getBodyTitle(jsonObject, assetRenderer, serviceContext)
 			});
 	}
 
 	protected String getBodyTitle(
-			MicroblogsEntry microblogsEntry, ServiceContext serviceContext)
+			JSONObject jsonObject, AssetRenderer assetRenderer,
+			ServiceContext serviceContext)
 		throws PortalException {
+
+		MicroblogsEntry microblogsEntry =
+			MicroblogsEntryLocalServiceUtil.fetchMicroblogsEntry(
+				assetRenderer.getClassPK());
 
 		String title = StringPool.BLANK;
 
