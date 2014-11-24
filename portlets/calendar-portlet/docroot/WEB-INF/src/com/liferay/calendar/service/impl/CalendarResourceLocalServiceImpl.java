@@ -35,8 +35,8 @@ import com.liferay.portal.model.Group;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.SystemEventConstants;
 import com.liferay.portal.model.User;
+import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.persistence.GroupUtil;
 
 import java.util.Date;
 import java.util.List;
@@ -66,7 +66,7 @@ public class CalendarResourceLocalServiceImpl
 		User user = userPersistence.fetchByPrimaryKey(userId);
 
 		if (user == null) {
-			Group group = GroupUtil.findByPrimaryKey(groupId);
+			Group group = GroupLocalServiceUtil.getGroup(groupId);
 
 			user = userPersistence.fetchByC_DU(group.getCompanyId() , true);
 
