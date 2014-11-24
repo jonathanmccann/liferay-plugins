@@ -68,7 +68,7 @@ public class CalendarResourceLocalServiceImpl
 		if (user == null) {
 			Group group = GroupLocalServiceUtil.getGroup(groupId);
 
-			user = userPersistence.fetchByC_DU(group.getCompanyId() , true);
+			user = userPersistence.fetchByC_DU(group.getCompanyId(), true);
 
 			userId = user.getUserId();
 		}
