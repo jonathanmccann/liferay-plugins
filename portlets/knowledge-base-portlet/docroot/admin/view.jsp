@@ -332,7 +332,7 @@ long parentResourcePrimKey = ParamUtil.getLong(request, "parentResourcePrimKey",
 				<liferay-ui:search-container-column-status
 					href="<%= rowURL %>"
 					name="status"
-					/>
+				/>
 
 				<liferay-ui:search-container-column-text
 					cssClass="kb-column-no-wrap"
