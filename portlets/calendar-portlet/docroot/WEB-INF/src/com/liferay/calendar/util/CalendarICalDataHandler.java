@@ -32,6 +32,7 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.ModelHintsUtil;
@@ -41,6 +42,7 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
 
 import java.net.URI;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -387,21 +389,21 @@ public class CalendarICalDataHandler implements CalendarDataHandler {
 
 		CalendarBooking calendarBooking = null;
 
-		String uuid = null;
+		String vEventUidValue = null;
 
 		Uid uid = vEvent.getUid();
 
 		if (uid != null) {
-			uuid = uid.getValue();
+			vEventUidValue = uid.getValue();
 
 			calendarBooking =
 				CalendarBookingLocalServiceUtil.fetchCalendarBooking(
-					uuid, calendar.getGroupId());
-			
+					vEventUidValue, calendar.getGroupId());
+
 			if (calendarBooking == null) {
 				calendarBooking =
-						CalendarBookingLocalServiceUtil.fetchCalendarBooking(
-								calendarId, uuid);
+					CalendarBookingLocalServiceUtil.fetchCalendarBooking(
+						calendarId, vEventUidValue);
 			}
 		}
 
@@ -413,7 +415,7 @@ public class CalendarICalDataHandler implements CalendarDataHandler {
 		serviceContext.setScopeGroupId(calendar.getGroupId());
 
 		if (calendarBooking == null) {
-			serviceContext.setUuid(uuid);
+			serviceContext.setUuid(vEventUidValue);
 
 			CalendarBookingServiceUtil.addCalendarBooking(
 				calendarId, childCalendarIdsArray,
@@ -595,17 +597,15 @@ public class CalendarICalDataHandler implements CalendarDataHandler {
 
 		PropertyList propertyList = vEvent.getProperties();
 
-		// UID or OutlookUid
-		
-		Uid uid;
-		
-		if (calendarBooking.getOutlookUid() == null
-				|| calendarBooking.getOutlookUid() == StringPool.BLANK
-				|| calendarBooking.getOutlookUid() == StringPool.NULL_CHAR) {
-			uid = new Uid(calendarBooking.getUuid());	
+		// UID
+
+		Uid uid = null;
+
+		if (Validator.isNotNull(calendarBooking.getVEventUid())) {
+			uid = new Uid(calendarBooking.getVEventUid());
 		}
 		else {
-			uid = new Uid(calendarBooking.getOutlookUid());
+			uid = new Uid(calendarBooking.getUuid());
 		}
 
 		propertyList.add(uid);
