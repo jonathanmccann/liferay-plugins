@@ -692,6 +692,21 @@ public interface CalendarBookingModel extends BaseModel<CalendarBooking>,
 	public void setStatusDate(Date statusDate);
 
 	/**
+	 * Returns the v event uid of this calendar booking.
+	 *
+	 * @return the v event uid of this calendar booking
+	 */
+	@AutoEscape
+	public String getVEventUid();
+
+	/**
+	 * Sets the v event uid of this calendar booking.
+	 *
+	 * @param vEventUid the v event uid of this calendar booking
+	 */
+	public void setVEventUid(String vEventUid);
+
+	/**
 	 * Returns the trash entry created when this calendar booking was moved to the Recycle Bin. The trash entry may belong to one of the ancestors of this calendar booking.
 	 *
 	 * @return the trash entry created when this calendar booking was moved to the Recycle Bin
