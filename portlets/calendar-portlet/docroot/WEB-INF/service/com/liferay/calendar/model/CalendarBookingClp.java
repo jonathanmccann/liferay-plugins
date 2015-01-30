@@ -127,6 +127,7 @@ public class CalendarBookingClp extends BaseModelImpl<CalendarBooking>
 		attributes.put("statusByUserId", getStatusByUserId());
 		attributes.put("statusByUserName", getStatusByUserName());
 		attributes.put("statusDate", getStatusDate());
+		attributes.put("vEventUid", getVEventUid());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -297,6 +298,12 @@ public class CalendarBookingClp extends BaseModelImpl<CalendarBooking>
 
 		if (statusDate != null) {
 			setStatusDate(statusDate);
+		}
+
+		String vEventUid = (String)attributes.get("vEventUid");
+
+		if (vEventUid != null) {
+			setVEventUid(vEventUid);
 		}
 
 		_entityCacheEnabled = GetterUtil.getBoolean("entityCacheEnabled");
@@ -1171,6 +1178,29 @@ public class CalendarBookingClp extends BaseModelImpl<CalendarBooking>
 	}
 
 	@Override
+	public String getVEventUid() {
+		return _vEventUid;
+	}
+
+	@Override
+	public void setVEventUid(String vEventUid) {
+		_vEventUid = vEventUid;
+
+		if (_calendarBookingRemoteModel != null) {
+			try {
+				Class<?> clazz = _calendarBookingRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setVEventUid", String.class);
+
+				method.invoke(_calendarBookingRemoteModel, vEventUid);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public java.util.TimeZone getTimeZone() {
 		try {
 			String methodName = "getTimeZone";
@@ -1806,6 +1836,7 @@ public class CalendarBookingClp extends BaseModelImpl<CalendarBooking>
 		clone.setStatusByUserId(getStatusByUserId());
 		clone.setStatusByUserName(getStatusByUserName());
 		clone.setStatusDate(getStatusDate());
+		clone.setVEventUid(getVEventUid());
 
 		return clone;
 	}
@@ -1880,7 +1911,7 @@ public class CalendarBookingClp extends BaseModelImpl<CalendarBooking>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(55);
+		StringBundler sb = new StringBundler(57);
 
 		sb.append("{uuid=");
 		sb.append(getUuid());
@@ -1936,6 +1967,8 @@ public class CalendarBookingClp extends BaseModelImpl<CalendarBooking>
 		sb.append(getStatusByUserName());
 		sb.append(", statusDate=");
 		sb.append(getStatusDate());
+		sb.append(", vEventUid=");
+		sb.append(getVEventUid());
 		sb.append("}");
 
 		return sb.toString();
@@ -1943,7 +1976,7 @@ public class CalendarBookingClp extends BaseModelImpl<CalendarBooking>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(85);
+		StringBundler sb = new StringBundler(88);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.calendar.model.CalendarBooking");
@@ -2057,6 +2090,10 @@ public class CalendarBookingClp extends BaseModelImpl<CalendarBooking>
 			"<column><column-name>statusDate</column-name><column-value><![CDATA[");
 		sb.append(getStatusDate());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>vEventUid</column-name><column-value><![CDATA[");
+		sb.append(getVEventUid());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -2092,6 +2129,7 @@ public class CalendarBookingClp extends BaseModelImpl<CalendarBooking>
 	private long _statusByUserId;
 	private String _statusByUserName;
 	private Date _statusDate;
+	private String _vEventUid;
 	private BaseModel<?> _calendarBookingRemoteModel;
 	private Class<?> _clpSerializerClass = com.liferay.calendar.service.ClpSerializer.class;
 	private boolean _entityCacheEnabled;

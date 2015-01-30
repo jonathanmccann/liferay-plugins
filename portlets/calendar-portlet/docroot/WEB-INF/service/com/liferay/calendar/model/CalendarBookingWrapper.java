@@ -81,6 +81,7 @@ public class CalendarBookingWrapper implements CalendarBooking,
 		attributes.put("statusByUserId", getStatusByUserId());
 		attributes.put("statusByUserName", getStatusByUserName());
 		attributes.put("statusDate", getStatusDate());
+		attributes.put("vEventUid", getVEventUid());
 
 		return attributes;
 	}
@@ -248,6 +249,12 @@ public class CalendarBookingWrapper implements CalendarBooking,
 
 		if (statusDate != null) {
 			setStatusDate(statusDate);
+		}
+
+		String vEventUid = (String)attributes.get("vEventUid");
+
+		if (vEventUid != null) {
+			setVEventUid(vEventUid);
 		}
 	}
 
@@ -809,6 +816,16 @@ public class CalendarBookingWrapper implements CalendarBooking,
 	@Override
 	public java.lang.String getUuid() {
 		return _calendarBooking.getUuid();
+	}
+
+	/**
+	* Returns the v event uid of this calendar booking.
+	*
+	* @return the v event uid of this calendar booking
+	*/
+	@Override
+	public java.lang.String getVEventUid() {
+		return _calendarBooking.getVEventUid();
 	}
 
 	@Override
@@ -1422,6 +1439,16 @@ public class CalendarBookingWrapper implements CalendarBooking,
 	@Override
 	public void setUuid(java.lang.String uuid) {
 		_calendarBooking.setUuid(uuid);
+	}
+
+	/**
+	* Sets the v event uid of this calendar booking.
+	*
+	* @param vEventUid the v event uid of this calendar booking
+	*/
+	@Override
+	public void setVEventUid(java.lang.String vEventUid) {
+		_calendarBooking.setVEventUid(vEventUid);
 	}
 
 	@Override

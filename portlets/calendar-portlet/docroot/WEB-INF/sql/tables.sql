@@ -45,7 +45,8 @@ create table CalendarBooking (
 	status INTEGER,
 	statusByUserId LONG,
 	statusByUserName VARCHAR(75) null,
-	statusDate DATE null
+	statusDate DATE null,
+	vEventUid VARCHAR(255) null
 );
 
 create table CalendarNotificationTemplate (
