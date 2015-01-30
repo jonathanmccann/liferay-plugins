@@ -398,13 +398,7 @@ public class CalendarICalDataHandler implements CalendarDataHandler {
 
 			calendarBooking =
 				CalendarBookingLocalServiceUtil.fetchCalendarBooking(
-					vEventUidValue, calendar.getGroupId());
-
-			if (calendarBooking == null) {
-				calendarBooking =
-					CalendarBookingLocalServiceUtil.fetchCalendarBooking(
-						calendarId, vEventUidValue);
-			}
+					calendarId, vEventUidValue);
 		}
 
 		ServiceContext serviceContext = new ServiceContext();
@@ -415,15 +409,13 @@ public class CalendarICalDataHandler implements CalendarDataHandler {
 		serviceContext.setScopeGroupId(calendar.getGroupId());
 
 		if (calendarBooking == null) {
-			serviceContext.setUuid(vEventUidValue);
-
 			CalendarBookingServiceUtil.addCalendarBooking(
 				calendarId, childCalendarIdsArray,
 				CalendarBookingConstants.PARENT_CALENDAR_BOOKING_ID_DEFAULT,
 				titleMap, descriptionMap, locationString, startDate.getTime(),
 				endDate.getTime(), allDay, recurrence, firstReminder,
 				firstReminderType, secondReminder, secondReminderType,
-				serviceContext);
+				vEventUidValue, serviceContext);
 		}
 		else {
 			CalendarBookingServiceUtil.updateCalendarBooking(
