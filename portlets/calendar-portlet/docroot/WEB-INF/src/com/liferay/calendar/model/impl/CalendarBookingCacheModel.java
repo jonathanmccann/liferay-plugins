@@ -18,6 +18,7 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.calendar.model.CalendarBooking;
 
+import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
@@ -40,8 +41,32 @@ import java.util.Date;
 public class CalendarBookingCacheModel implements CacheModel<CalendarBooking>,
 	Externalizable {
 	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof CalendarBookingCacheModel)) {
+			return false;
+		}
+
+		CalendarBookingCacheModel calendarBookingCacheModel = (CalendarBookingCacheModel)obj;
+
+		if (calendarBookingId == calendarBookingCacheModel.calendarBookingId) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return HashUtil.hash(0, calendarBookingId);
+	}
+
+	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(55);
+		StringBundler sb = new StringBundler(57);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -97,6 +122,8 @@ public class CalendarBookingCacheModel implements CacheModel<CalendarBooking>,
 		sb.append(statusByUserName);
 		sb.append(", statusDate=");
 		sb.append(statusDate);
+		sb.append(", vEventUid=");
+		sb.append(vEventUid);
 		sb.append("}");
 
 		return sb.toString();
@@ -211,6 +238,13 @@ public class CalendarBookingCacheModel implements CacheModel<CalendarBooking>,
 			calendarBookingImpl.setStatusDate(new Date(statusDate));
 		}
 
+		if (vEventUid == null) {
+			calendarBookingImpl.setVEventUid(StringPool.BLANK);
+		}
+		else {
+			calendarBookingImpl.setVEventUid(vEventUid);
+		}
+
 		calendarBookingImpl.resetOriginalValues();
 
 		return calendarBookingImpl;
@@ -245,6 +279,7 @@ public class CalendarBookingCacheModel implements CacheModel<CalendarBooking>,
 		statusByUserId = objectInput.readLong();
 		statusByUserName = objectInput.readUTF();
 		statusDate = objectInput.readLong();
+		vEventUid = objectInput.readUTF();
 	}
 
 	@Override
@@ -337,6 +372,13 @@ public class CalendarBookingCacheModel implements CacheModel<CalendarBooking>,
 		}
 
 		objectOutput.writeLong(statusDate);
+
+		if (vEventUid == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(vEventUid);
+		}
 	}
 
 	public String uuid;
@@ -366,4 +408,5 @@ public class CalendarBookingCacheModel implements CacheModel<CalendarBooking>,
 	public long statusByUserId;
 	public String statusByUserName;
 	public long statusDate;
+	public String vEventUid;
 }

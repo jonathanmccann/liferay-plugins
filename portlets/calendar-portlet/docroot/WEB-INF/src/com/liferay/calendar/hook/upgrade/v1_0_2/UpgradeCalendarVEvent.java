@@ -12,24 +12,26 @@
  * details.
  */
 
-package com.liferay.calendar.hook.upgrade;
+package com.liferay.calendar.hook.upgrade.v1_0_2;
 
-import com.liferay.calendar.hook.upgrade.v1_0_0.UpgradeCalendarBooking;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 
 /**
- * @author Jenny Chen
+ * @author Bryan Engler
  */
-public class UpgradeProcess_1_0_0 extends UpgradeProcess {
-
-	@Override
-	public int getThreshold() {
-		return 100;
-	}
+public class UpgradeCalendarVEvent extends UpgradeProcess {
 
 	@Override
 	protected void doUpgrade() throws Exception {
-		upgrade(UpgradeCalendarBooking.class);
+		if (tableHasColumn("CalendarBooking", "vEventUid")) {
+			return;
+		}
+
+		runSQL("alter table CalendarBooking add vEventUid VARCHAR(255)");
+
+		runSQL(
+			"create index IX_8B23DA0E on CalendarBooking " +
+				"(calendarId, vEventUid)");
 	}
 
 }

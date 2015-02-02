@@ -479,7 +479,7 @@
 	</javadoc>
 	<javadoc>
 		<name>UpgradePortletPreferences</name>
-		<type>com.liferay.calendar.hook.upgrade.v1_0_0.UpgradePortletPreferences</type>
+		<type>com.liferay.calendar.hook.upgrade.v1_0_1.UpgradePortletPreferences</type>
 		<author><![CDATA[Bryan Engler]]></author>
 		<method>
 			<name>getUpdatePortletPreferencesWhereClause</name>
