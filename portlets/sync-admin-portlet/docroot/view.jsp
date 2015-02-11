@@ -79,6 +79,16 @@ int pollInterval = PrefsPropsUtil.getInteger(portletPreferences, themeDisplay.ge
 					value="<%= group.getDescriptiveName() %>"
 				/>
 
+				<liferay-ui:search-container-column-text
+					name="sync-enabled"
+					value='<%= LanguageUtil.get(locale, GetterUtil.getString(group.getTypeSettingsProperty("syncEnabled"), "true")) %>'
+				/>
+
+				<liferay-ui:search-container-column-text
+					name="permissions"
+					value='<%= LanguageUtil.get(locale, GetterUtil.getString(group.getTypeSettingsProperty("permissions"), "full-access-permission")) %>'
+				/>
+
 				<liferay-ui:search-container-column-jsp
 					align="right"
 					cssClass="entry-action"

@@ -35,6 +35,25 @@ import javax.portlet.PortletPreferences;
  */
 public class AdminPortlet extends MVCPortlet {
 
+	public void configurePermissions(
+		ActionRequest actionRequest, ActionResponse actionResponse) {
+
+		long groupId = ParamUtil.getLong(actionRequest, "groupId");
+
+		String permissions = ParamUtil.getString(actionRequest, "permissions");
+
+		Group group = GroupLocalServiceUtil.fetchGroup(groupId);
+
+		UnicodeProperties typeSettingsProperties =
+			group.getTypeSettingsProperties();
+
+		typeSettingsProperties.setProperty("permissions", permissions);
+
+		group.setTypeSettingsProperties(typeSettingsProperties);
+
+		GroupLocalServiceUtil.updateGroup(group);
+	}
+
 	public void configureSite(
 		ActionRequest actionRequest, ActionResponse actionResponse) {
 
