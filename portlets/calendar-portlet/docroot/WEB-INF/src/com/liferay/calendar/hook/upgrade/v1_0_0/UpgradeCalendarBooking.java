@@ -15,6 +15,7 @@
 package com.liferay.calendar.hook.upgrade.v1_0_0;
 
 import com.liferay.calendar.hook.upgrade.v1_0_0.util.CalendarBookingTable;
+import com.liferay.calendar.util.PortletPropsValues;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 
 import java.sql.SQLException;
@@ -26,6 +27,8 @@ public class UpgradeCalendarBooking extends UpgradeProcess {
 
 	@Override
 	protected void doUpgrade() throws Exception {
+		PortletPropsValues.CALENDAR_SYNC_CALEVENTS_ON_STARTUP = true;
+
 		try {
 			runSQL("alter_column_type CalendarBooking description TEXT null");
 		}
