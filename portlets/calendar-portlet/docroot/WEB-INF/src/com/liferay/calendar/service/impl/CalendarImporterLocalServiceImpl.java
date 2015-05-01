@@ -145,6 +145,8 @@ public class CalendarImporterLocalServiceImpl
 			classNameLocalService.getClassNameId(
 				CalendarBooking.class.getName()),
 			calendarBookingId);
+
+		CalEventLocalServiceUtil.deleteCalEvent(calEvent);
 	}
 
 	@Override
