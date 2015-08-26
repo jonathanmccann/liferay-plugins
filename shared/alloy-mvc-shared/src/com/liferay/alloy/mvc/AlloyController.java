@@ -25,7 +25,7 @@ import javax.servlet.jsp.PageContext;
 /**
  * @author Brian Wing Shun Chan
  */
-public interface AlloyController {
+public interface AlloyController<T extends BaseModel<T>> {
 
 	public void afterPropertiesSet();
 
@@ -41,11 +41,11 @@ public interface AlloyController {
 
 	public long increment() throws Exception;
 
-	public void indexModel(BaseModel<?> baseModel) throws Exception;
+	public void indexModel(T baseModel) throws Exception;
 
-	public void persistModel(BaseModel<?> baseModel) throws Exception;
+	public void persistModel(T baseModel) throws Exception;
 
-	public void setModel(BaseModel<?> baseModel, Object... properties)
+	public void setModel(T baseModel, Object... properties)
 		throws Exception;
 
 	public void setPageContext(PageContext pageContext);
@@ -54,11 +54,11 @@ public interface AlloyController {
 
 	public String translate(String pattern, Object... arguments);
 
-	public void updateModel(BaseModel<?> baseModel, Object... properties)
+	public void updateModel(T baseModel, Object... properties)
 		throws Exception;
 
 	public void updateModelIgnoreRequest(
-			BaseModel<?> baseModel, Object... properties)
+			T baseModel, Object... properties)
 		throws Exception;
 
 }
