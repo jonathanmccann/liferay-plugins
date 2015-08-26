@@ -51,8 +51,18 @@ public class AccountIndexer extends BaseIndexer<Account> {
 	public static final String CLASS_NAME = Account.class.getName();
 
 	@Override
+	public ActionableDynamicQuery getActionableDynamicQuery() {
+		return AccountLocalServiceUtil.getActionableDynamicQuery();
+	}
+
+	@Override
 	public String getClassName() {
 		return CLASS_NAME;
+	}
+
+	@Override
+	public Class<Account> getIndexClass() {
+		return Account.class;
 	}
 
 	@Override

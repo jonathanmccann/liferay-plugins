@@ -69,8 +69,18 @@ public class KBArticleIndexer extends BaseIndexer<KBArticle> {
 	}
 
 	@Override
+	public ActionableDynamicQuery getActionableDynamicQuery() {
+		return KBArticleLocalServiceUtil.getActionableDynamicQuery();
+	}
+
+	@Override
 	public String getClassName() {
 		return CLASS_NAME;
+	}
+
+	@Override
+	public Class<KBArticle> getIndexClass() {
+		return KBArticle.class;
 	}
 
 	@Override
