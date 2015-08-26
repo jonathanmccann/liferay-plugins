@@ -1,3 +1,4 @@
+<%@ page import="com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery" %>
 <%--
 /**
  * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
@@ -15,7 +16,7 @@
 --%>
 
 <%!
-public static class AssetIndexer extends BaseAlloyIndexer {
+public static class AssetIndexer extends BaseAlloyIndexer<Asset> {
 
 	public static AssetIndexer getInstance() {
 		return _instance;
@@ -31,9 +32,7 @@ public static class AssetIndexer extends BaseAlloyIndexer {
 	}
 
 	@Override
-	protected Document doGetDocument(BaseModel<?> baseModel) throws Exception {
-		Asset asset = (Asset)baseModel;
-
+	protected Document doGetDocument(Asset asset) throws Exception {
 		Document document = getBaseModelDocument(className, asset);
 
 		if (asset.isActive()) {
