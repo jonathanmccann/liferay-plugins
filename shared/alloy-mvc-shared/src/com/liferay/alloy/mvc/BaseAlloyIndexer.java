@@ -75,18 +75,8 @@ public abstract class BaseAlloyIndexer<T extends BaseModel<T>>
 	}
 
 	@Override
-	protected void doReindex(T baseModel) throws Exception {
-		Document document = getDocument(baseModel);
-
-		AuditedModel auditedModel = (AuditedModel)baseModel;
-
-		SearchEngineUtil.updateDocument(
-			getSearchEngineId(), auditedModel.getCompanyId(), document);
-	}
-
-	@Override
 	protected void doReindex(String className, long classPK) throws Exception {
-		T baseModel = (T) alloyServiceInvoker.fetchModel(classPK);
+		T baseModel = (T)alloyServiceInvoker.fetchModel(classPK);
 
 		if (baseModel != null) {
 			doReindex(baseModel);
@@ -98,6 +88,16 @@ public abstract class BaseAlloyIndexer<T extends BaseModel<T>>
 		long companyId = GetterUtil.getLong(ids[0]);
 
 		reindexModels(companyId);
+	}
+
+	@Override
+	protected void doReindex(T baseModel) throws Exception {
+		Document document = getDocument(baseModel);
+
+		AuditedModel auditedModel = (AuditedModel)baseModel;
+
+		SearchEngineUtil.updateDocument(
+			getSearchEngineId(), auditedModel.getCompanyId(), document);
 	}
 
 	@Override

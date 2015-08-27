@@ -240,9 +240,7 @@ public abstract class BaseAlloyControllerImpl<T extends BaseModel<T>>
 	}
 
 	@Override
-	public void setModel(T baseModel, Object... properties)
-		throws Exception {
-
+	public void setModel(T baseModel, Object... properties) throws Exception {
 		if (baseModel.isNew()) {
 			baseModel.setPrimaryKeyObj(increment());
 		}
@@ -295,8 +293,7 @@ public abstract class BaseAlloyControllerImpl<T extends BaseModel<T>>
 	}
 
 	@Override
-	public void updateModelIgnoreRequest(
-			T baseModel, Object... properties)
+	public void updateModelIgnoreRequest(T baseModel, Object... properties)
 		throws Exception {
 
 		setModel(baseModel, properties);
