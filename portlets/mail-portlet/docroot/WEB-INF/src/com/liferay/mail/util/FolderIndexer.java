@@ -33,6 +33,7 @@ import com.liferay.portal.kernel.search.SortFactoryUtil;
 import com.liferay.portal.kernel.search.Summary;
 import com.liferay.portal.kernel.search.generic.BooleanQueryImpl;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portlet.documentlibrary.service.DLFolderLocalServiceUtil;
 import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.portlet.expando.util.ExpandoBridgeIndexerUtil;
 
@@ -51,8 +52,18 @@ public class FolderIndexer extends BaseIndexer<Folder> {
 	public static final String CLASS_NAME = Folder.class.getName();
 
 	@Override
+	public ActionableDynamicQuery getActionableDynamicQuery() {
+		return DLFolderLocalServiceUtil.getActionableDynamicQuery();
+	}
+
+	@Override
 	public String getClassName() {
 		return CLASS_NAME;
+	}
+
+	@Override
+	public Class<Folder> getIndexClass() {
+		return Folder.class;
 	}
 
 	@Override

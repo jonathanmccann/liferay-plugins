@@ -34,7 +34,8 @@ import java.util.List;
 /**
  * @author Brian Wing Shun Chan
  */
-public abstract class BaseAlloyIndexer extends BaseIndexer<BaseModel<?>> {
+public abstract class BaseAlloyIndexer<T extends BaseModel<T>>
+	extends BaseIndexer<T> {
 
 	public AlloyServiceInvoker getAlloyServiceInvoker() {
 		return alloyServiceInvoker;
@@ -60,7 +61,7 @@ public abstract class BaseAlloyIndexer extends BaseIndexer<BaseModel<?>> {
 	}
 
 	@Override
-	protected void doDelete(BaseModel<?> baseModel) throws Exception {
+	protected void doDelete(T baseModel) throws Exception {
 		Document document = new DocumentImpl();
 
 		document.addUID(
@@ -74,18 +75,8 @@ public abstract class BaseAlloyIndexer extends BaseIndexer<BaseModel<?>> {
 	}
 
 	@Override
-	protected void doReindex(BaseModel<?> baseModel) throws Exception {
-		Document document = getDocument(baseModel);
-
-		AuditedModel auditedModel = (AuditedModel)baseModel;
-
-		SearchEngineUtil.updateDocument(
-			getSearchEngineId(), auditedModel.getCompanyId(), document);
-	}
-
-	@Override
 	protected void doReindex(String className, long classPK) throws Exception {
-		BaseModel<?> baseModel = alloyServiceInvoker.fetchModel(classPK);
+		T baseModel = (T)alloyServiceInvoker.fetchModel(classPK);
 
 		if (baseModel != null) {
 			doReindex(baseModel);
@@ -97,6 +88,16 @@ public abstract class BaseAlloyIndexer extends BaseIndexer<BaseModel<?>> {
 		long companyId = GetterUtil.getLong(ids[0]);
 
 		reindexModels(companyId);
+	}
+
+	@Override
+	protected void doReindex(T baseModel) throws Exception {
+		Document document = getDocument(baseModel);
+
+		AuditedModel auditedModel = (AuditedModel)baseModel;
+
+		SearchEngineUtil.updateDocument(
+			getSearchEngineId(), auditedModel.getCompanyId(), document);
 	}
 
 	@Override
@@ -128,7 +129,7 @@ public abstract class BaseAlloyIndexer extends BaseIndexer<BaseModel<?>> {
 	protected void reindexModels(long companyId, int start, int end)
 		throws Exception {
 
-		List<BaseModel<?>> baseModels = alloyServiceInvoker.executeDynamicQuery(
+		List<T> baseModels = alloyServiceInvoker.executeDynamicQuery(
 			new Object[] {"companyId", companyId}, start, end);
 
 		if (baseModels.isEmpty()) {
@@ -137,7 +138,7 @@ public abstract class BaseAlloyIndexer extends BaseIndexer<BaseModel<?>> {
 
 		Collection<Document> documents = new ArrayList<>(baseModels.size());
 
-		for (BaseModel<?> baseModel : baseModels) {
+		for (T baseModel : baseModels) {
 			Document document = getDocument(baseModel);
 
 			documents.add(document);

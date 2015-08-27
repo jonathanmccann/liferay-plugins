@@ -117,7 +117,8 @@ import javax.servlet.jsp.PageContext;
 /**
  * @author Brian Wing Shun Chan
  */
-public abstract class BaseAlloyControllerImpl implements AlloyController {
+public abstract class BaseAlloyControllerImpl<T extends BaseModel<T>>
+	implements AlloyController<T> {
 
 	public static final String TOUCH =
 		BaseAlloyControllerImpl.class.getName() + "#TOUCH#";
@@ -210,15 +211,15 @@ public abstract class BaseAlloyControllerImpl implements AlloyController {
 	}
 
 	@Override
-	public void indexModel(BaseModel<?> baseModel) throws Exception {
+	public void indexModel(T baseModel) throws Exception {
 		if ((indexer != null) &&
 			indexerClassName.equals(baseModel.getModelClassName())) {
 
 			indexer.reindex(baseModel);
 		}
 		else {
-			Indexer<BaseModel<?>> baseModelIndexer =
-				(Indexer<BaseModel<?>>)IndexerRegistryUtil.getIndexer(
+			Indexer<T> baseModelIndexer =
+				(Indexer<T>)IndexerRegistryUtil.getIndexer(
 					baseModel.getModelClass());
 
 			if (baseModelIndexer != null) {
@@ -228,7 +229,7 @@ public abstract class BaseAlloyControllerImpl implements AlloyController {
 	}
 
 	@Override
-	public void persistModel(BaseModel<?> baseModel) throws Exception {
+	public void persistModel(T baseModel) throws Exception {
 		if (!(baseModel instanceof PersistedModel)) {
 			return;
 		}
@@ -239,9 +240,7 @@ public abstract class BaseAlloyControllerImpl implements AlloyController {
 	}
 
 	@Override
-	public void setModel(BaseModel<?> baseModel, Object... properties)
-		throws Exception {
-
+	public void setModel(T baseModel, Object... properties) throws Exception {
 		if (baseModel.isNew()) {
 			baseModel.setPrimaryKeyObj(increment());
 		}
@@ -285,7 +284,7 @@ public abstract class BaseAlloyControllerImpl implements AlloyController {
 	}
 
 	@Override
-	public void updateModel(BaseModel<?> baseModel, Object... properties)
+	public void updateModel(T baseModel, Object... properties)
 		throws Exception {
 
 		BeanPropertiesUtil.setProperties(baseModel, request);
@@ -294,8 +293,7 @@ public abstract class BaseAlloyControllerImpl implements AlloyController {
 	}
 
 	@Override
-	public void updateModelIgnoreRequest(
-			BaseModel<?> baseModel, Object... properties)
+	public void updateModelIgnoreRequest(T baseModel, Object... properties)
 		throws Exception {
 
 		setModel(baseModel, properties);
@@ -360,7 +358,7 @@ public abstract class BaseAlloyControllerImpl implements AlloyController {
 		return sb.toString();
 	}
 
-	protected Indexer<BaseModel<?>> buildIndexer() {
+	protected Indexer<T> buildIndexer() {
 		return null;
 	}
 
@@ -1411,7 +1409,7 @@ public abstract class BaseAlloyControllerImpl implements AlloyController {
 	protected EventRequest eventRequest;
 	protected EventResponse eventResponse;
 	protected String format;
-	protected Indexer<BaseModel<?>> indexer;
+	protected Indexer<T> indexer;
 	protected String indexerClassName;
 	protected String lifecycle;
 	protected LiferayPortletConfig liferayPortletConfig;

@@ -18,7 +18,7 @@
 <%@ include file="/WEB-INF/jsp/util/asset_indexer.jspf" %>
 
 <%!
-public static class AlloyControllerImpl extends BaseAlloyControllerImpl {
+public static class AlloyControllerImpl extends BaseAlloyControllerImpl<Asset> {
 
 	public AlloyControllerImpl() {
 		setPermissioned(true);
@@ -85,7 +85,7 @@ public static class AlloyControllerImpl extends BaseAlloyControllerImpl {
 	}
 
 	@Override
-	protected Indexer<BaseModel<?>> buildIndexer() {
+	protected Indexer<Asset> buildIndexer() {
 		return AssetIndexer.getInstance();
 	}
 

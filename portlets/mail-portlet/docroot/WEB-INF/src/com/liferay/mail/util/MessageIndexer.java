@@ -46,8 +46,18 @@ public class MessageIndexer extends BaseIndexer<Message> {
 	public static final String CLASS_NAME = Message.class.getName();
 
 	@Override
+	public ActionableDynamicQuery getActionableDynamicQuery() {
+		return MessageLocalServiceUtil.getActionableDynamicQuery();
+	}
+
+	@Override
 	public String getClassName() {
 		return CLASS_NAME;
+	}
+
+	@Override
+	public Class<Message> getIndexClass() {
+		return Message.class;
 	}
 
 	@Override
